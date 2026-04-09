@@ -22,7 +22,7 @@ class ActorSerializer(serializers.ModelSerializer):
         model = Actor
         fields = ("id", "first_name", "last_name", "full_name")
 
-    def get_full_name(self, obj):
+    def get_full_name(self, obj) -> str:
         return f"{obj.first_name} {obj.last_name}"
 
 
@@ -44,7 +44,7 @@ class MovieListSerializer(serializers.ModelSerializer):
         model = Movie
         fields = ("id", "title", "description", "duration", "genres", "actors")
 
-    def get_actors(self, obj):
+    def get_actors(self, obj) -> list[str]:
         return [f"{a.first_name} {a.last_name}" for a in obj.actors.all()]
 
 
@@ -65,7 +65,7 @@ class MovieCreateSerializer(serializers.ModelSerializer):
         many=True,
         queryset=Actor.objects.all())
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> Movie:
         genres = validated_data.pop("genres", [])
         actors = validated_data.pop("actors", [])
         movie = Movie.objects.create(**validated_data)
@@ -121,13 +121,12 @@ class MovieSessionCreateSerializer(serializers.ModelSerializer):
     movie = serializers.PrimaryKeyRelatedField(
         queryset=Movie.objects.all())
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> MovieSession:
         cinema_hall = validated_data.pop("cinema_hall")
         movie = validated_data.pop("movie")
         movie_session = MovieSession.objects.create(movie=movie,
                                                     cinema_hall=cinema_hall,
                                                     **validated_data)
-        movie_session.save()
         return movie_session
 
     class Meta:
