@@ -47,7 +47,7 @@ class MovieViewSet(viewsets.ModelViewSet):
             return MovieListSerializer
         if self.action == "retrieve":
             return MovieDetailSerializer
-        if self.action == "create":
+        if self.action in ("create", "update", "partial_update"):
             return MovieCreateSerializer
         return MovieDetailSerializer
 
@@ -67,6 +67,6 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
             return MovieSessionListSerializer
         if self.action == "retrieve":
             return MovieSessionDetailSerializer
-        if self.action == "create":
+        if self.action in ("create", "update", "partial_update"):
             return MovieSessionCreateSerializer
         return MovieSessionDetailSerializer

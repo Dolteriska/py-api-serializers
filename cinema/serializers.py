@@ -121,6 +121,16 @@ class MovieSessionCreateSerializer(serializers.ModelSerializer):
     movie = serializers.PrimaryKeyRelatedField(
         queryset=Movie.objects.all())
 
+    class Meta:
+        model = MovieSession
+        fields = ("id", "show_time", "movie", "cinema_hall")
+
+
+
+
+
+
+"""
     def create(self, validated_data) -> MovieSession:
         cinema_hall = validated_data.pop("cinema_hall")
         movie = validated_data.pop("movie")
@@ -128,7 +138,4 @@ class MovieSessionCreateSerializer(serializers.ModelSerializer):
                                                     cinema_hall=cinema_hall,
                                                     **validated_data)
         return movie_session
-
-    class Meta:
-        model = MovieSession
-        fields = ("id", "show_time", "movie", "cinema_hall")
+"""
