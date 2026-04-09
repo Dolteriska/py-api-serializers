@@ -124,18 +124,3 @@ class MovieSessionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = MovieSession
         fields = ("id", "show_time", "movie", "cinema_hall")
-
-
-
-
-
-
-"""
-    def create(self, validated_data) -> MovieSession:
-        cinema_hall = validated_data.pop("cinema_hall")
-        movie = validated_data.pop("movie")
-        movie_session = MovieSession.objects.create(movie=movie,
-                                                    cinema_hall=cinema_hall,
-                                                    **validated_data)
-        return movie_session
-"""
